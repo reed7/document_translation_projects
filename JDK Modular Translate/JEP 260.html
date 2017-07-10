@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>JEP 260</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+
+
+</head>
+
+<body>
+
+<p>作者  Mark Reinhold</p>
+
+<p>所有者  Chris Hegarty</p>
+
+<p>创建  2015/08/03 18:29</p>
+
+<p>更新  2017/03/08 13:58</p>
+
+<p>类型  功能</p>
+
+<p>状态  已完成</p>
+
+<p>域   JDK</p>
+
+<p>讨论  拼图的开发在 openjdk.java.net</p>
+
+<p>努力  M</p>
+
+<p>持续时间  L</p>
+
+<p>优先  1</p>
+
+<p>检验人 Alan Bateman, Alex Buckley, Brian Goetz, John Rose, Paul Sandoz</p>
+
+<p>支持  Brian Goetz</p>
+
+<p>发行  9</p>
+
+<p>版本  <a href="https://bugs.openjdk.java.net/browse/JDK-8132928">8132928</a></p>
+
+<p>块    <a href="http://openjdk.java.net/jeps/261">JEP 261: Module System</a></p>
+
+<h3 id="toc_0">概要</h3>
+
+<p>将大部分 JDK 内部 API 修改为默认不可访问，只保留一些十分重要，被广泛使用的 API 的可访问性，直到替代这些 API 全部或大部分功能的代码被实现。</p>
+
+<h3 id="toc_1">非目标</h3>
+
+<p>此 JEP 并不会对任何内部 API 的替代方案提出建议，那一任务将交由单独的 JEP，或时机恰当时， 由 JSR 来负责。</p>
+
+<p>保证内部 API 跨版本的兼容性并不是此 JEP 的任务。这些 API 将依然保持不稳定状态，并很有可能在未经通知的情况下被更改。</p>
+
+<h3 id="toc_2">动机</h3>
+
+<p>目前一些流行的第三方库正在使用费标准，不稳定，并且不受支持的 API，这些 API 实际上是 JDK 的内部实现细节，<a href="http://web.archive.org/web/19980215011039/http:/java.sun.com/products/jdk/faq/faq-sun-packages.html">从未以交给外部调用作为目的来开发</a>。在即将到来的模块化系统（<a href="http://openjdk.java.net/jeps/200">JEP 200</a>）中限制对这些 API 的访问将增进平台的完整性和安全性，因为许多此类内部 API 都涉及到特权以及安全敏感的操作。从长远看来，这一更改有助于降低 JDK/类库的维护者或应用程序在有意或无意地使用这些内部 API 时的成本。</p>
+
+<h3 id="toc_3">描述</h3>
+
+<p>基于对多个大型代码仓库，包括 Maven 中心仓的分析，以及从 JDK8 以及它的<a href="https://wiki.openjdk.java.net/display/JDK8/Java+Dependency+Analysis+Tool">依赖分析工具（jdeps）</a>发布以后搜集到的反馈，我们可以将 JDK 的内部 API 分成以下两大类：</p>
+
+<ul>
+<li><p>未被 JDK 以外的代码所调用的，或只是出于方便而被外部代码调用的 API，例如那些同时也被支持的 API 提供的，或由类库提供的功能（如 sun.misc.BASE64Decoder）；以及</p></li>
+<li><p>提供关键功能，这些功能如果不是不可能，那也是非常难以在 JDK 之外予以实现的 API （如 sun.misc.Unsafe）</p></li>
+</ul>
+
+<p>在 JDK 9 中，我们提议：</p>
+
+<ul>
+<li><p>默认封装所有非关键内部 API：定义他们的模块将不会把他们所在的包导出以供外部调用。（作为补救，可以通过编译时和运行时的命令行参数开启这些 API 的可访问性，知道这些 API 由于其它原因而被修改或者删除。）</p></li>
+<li><p>封装在 JDK8 中有支持的替代代码的关键内部 API，并且如上提供相应的补救方案。（所谓支持的替代代码，要么是 JDK 标准库的一部分，要么是 JDK 特定的，被 @jdk.Exported 所标注的代码（一般在 com.sun.* 或 jdk.* 包下面））</p></li>
+<li><p>在 JDK8 中不存在替代 API 的关键内部 API 不予封装，并且将在 JDK9 中有支持的替代 API 的内部 API 标注为将要被封装，或者将要在 JDK10 中移除，不再建议使用（deprecate）。</p></li>
+</ul>
+
+<p>建议在 JDK9 中保留可访问性的关键内部 API 如下：</p>
+
+<ul>
+<li><p>sun.misc.{Signal, SignalHandler}</p></li>
+<li><p>sun.misc.Unsafe（此类中许多方法的功能目前已可以在 variable handles （<a href="http://openjdk.java.net/jeps/193">JEP 193</a>）中找到）</p></li>
+<li><p>sun.reflect.Reflection::getCallerClass(int) （此方法的功能或许会由 <a href="http://openjdk.java.net/jeps/259">JEP 259</a> 作为标准形式提供出来）</p></li>
+<li><p>sun.reflect.ReflectionFactory.newConstructorForSerialization</p></li>
+</ul>
+
+<p>欢迎根据现实使用场景以及对开发者与使用者造成的影响，对完善此列表提出任何建议。</p>
+
+<p>以上关键内部 API 将会被放置于 JDK 特定的模块 jdk.unsupported 下，他们的包也会从这个模块中被导出。此模块会在完整的 JRE 和 JDK 镜像中被呈现。这些 API 也会默认可以被在类路径中的代码所访问，另外如果某个模块声明了针对 jdk.unsupported 的依赖，这个模块中的代码也能够访问这些 API。</p>
+
+<p>正如上面提到的，在 JDK9 中有一些内部 API 的替代 API 已经部分或全部被实现了。开发者请尽可能在 <a href="http://jdk9.java.net/">JDK9 早期预览版本</a>中测试这些替代 API，如果这些替代 API 不够全免，或有可以改进的地方，请尽早提供反馈。</p>
+
+<p><strong>在 JDK9 中引入了替代 API 的关键内部 API 将在 JDK9 中被标注为不再建议使用，并且在 JDK10 中被封装或移除。</strong></p>
+
+<p>导出 jdk.unsupported 和开放  sun.misc 与 sun.reflect 的后果如下：</p>
+
+<ul>
+<li><p>sun.misc 与 sun.reflect 中的非关键内部 API 将被移至他处，或如果适合的话，彻底移除，因为它们本不应能够被访问到。</p></li>
+<li><p>标准模块和 JDK 模块不可以依赖于 jdk.unsupported。</p></li>
+</ul>
+
+<p>调用了关键内部 API 的那些类库的维护者，如果这些关键内部 API 在 JDK9 中有替代 API，可以考虑使用<a href="http://openjdk.java.net/jeps/238">多版本 JAR 包（JEP 238）</a>，以便发布可自动在 JDK9 下调用旧版 API，而在之后的版本调用替代 API 的产品。</p>
+
+<h3 id="toc_4">风险与假设</h3>
+
+<p>如果在 JDK9 发布的时候，仍有一些被广泛调用的关键内部 API 尚未被发现，这些 API 的调方将会出错。针对这种情况的一个快速解决方案是最终用户使用上面提到的命令行标志将这些 API 暴露出来；而长期解决方案则是在 JDK9 的更新中把这些 API 移动到 jdk.unsupported 模块并导出供外部使用。</p>
+
+<p>因为 jdk.unsupported 模块将会暴露 sun.misc 和 sun.reflect，这些模块内的所有非关键内部 API 将被移走或移除。如果移除，这些 API 将不再可见，或可访问。如果移走，他们可通过设置命令行标志而成为可访问的，但它们的全名将会被改变，例如，它们将会处在另一个名字不同的包下面。</p>
+
+<p>除了前面提到的 sun.reflect 下的关键 API，此包中还包含了实现 java.lang(.reflect) 子系统的机制。这些机制将被移动到基础模块下一个内部的，非导出的包中。由此，将会导致反射调用的调用栈看上去和以前不同。具体而言，代表反射实现的栈帧的类名（StackTraceElement.getClassName()）会从 sun.reflect.XXX 变成 jdk.internal.reflect.XXX。所有基于调用栈元素类名的代码分析或过滤，都需要进行恰当的更新以应对这一情况。详细细节参考 <a href="https://bugs.openjdk.java.net/browse/JDK-8137058">8137058</a>  。</p>
+
+
+
+
+</body>
+
+</html>
