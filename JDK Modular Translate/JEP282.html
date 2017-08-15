@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>JEP282</title>
+
+
+
+</head>
+
+<body>
+
+<p>作者  Jean-Francois Denise</p>
+
+<p>所有者  Jim Laskey</p>
+
+<p>创建  2015/07/16 12:55</p>
+
+<p>更新  2017/05/19 02:01</p>
+
+<p>类型  功能</p>
+
+<p>状态  已关闭/已交付</p>
+
+<p>域   JDK</p>
+
+<p>讨论  拼图的开发在 openjdk.java.net</p>
+
+<p>努力  L</p>
+
+<p>持续时间  L</p>
+
+<p>优先  2</p>
+
+<p>检验人 Alan Bateman, Alex Buckley, Iris Clark, Jim Laskey, Mandy Chung, Mark Reinhold</p>
+
+<p>支持  Brian Goetz</p>
+
+<p>发行  9</p>
+
+<p>版本  <a href="https://bugs.openjdk.java.net/browse/JDK-8131679">8131679</a></p>
+
+<p>依赖 <a href="http://openjdk.java.net/jeps/261">JEP 261: Module System</a></p>
+
+<p>相关 <a href="http://openjdk.java.net/jeps/220">JEP 220: Modular Run-Time Images</a></p>
+
+<p><a href="http://openjdk.java.net/jeps/275">JEP 275: Modular Java Application Packaging</a></p>
+
+<h3 id="toc_0">概要</h3>
+
+<p>创建一个用于将一组模块和它们的依赖组装与优化到一个自定义运行时镜像中去的工具，此运行时镜像的细节在  <a href="http://openjdk.java.net/jeps/220">JEP220</a> 中定义。</p>
+
+<h3 id="toc_1">非目标</h3>
+
+<p>此 JEP 所定义的工具唯一的功能就是用于创建模块化运行时镜像。</p>
+
+<p>为插件定义一个标准的，或受支持的 API 并非此 JEP 的目标。相反的，此中所定义的插件 API 将是完全实验性的。在我们从此 JEP 所定义的 API 的应用中获得足够经验之后，将来或许会创建一个新的 JEP 用于讨论标准 API 的定义。</p>
+
+<h3 id="toc_2">动机</h3>
+
+<p>JEP261 在编译时（javac命令）和运行时（java命令）之间定义了一个可选阶段：链接时。链接时需要一个链接工具用于组装和优化一组模块以及它们的可传递依赖，以建立一个运行时镜像，或可执行文件。</p>
+
+<p>运行时是一个对全局进行优化的较好时机，因为在编译时进行优化会比较困难，而在运行时进行优化代价高昂。一个例子是，在一个计算的所有输入成为常量（亦既非未知）时对其进行优化。还有一个例子是把不再会被执行到的代码移除。</p>
+
+<h3 id="toc_3">描述</h3>
+
+<p>一个基本的对链接工具 jlink 的调用如下：</p>
+
+<p><code>$ jlink --module-path &lt;模块路径&gt; --add-modules &lt;模块名&gt; --limit-modules &lt;模块名&gt; --output &lt;输出路径&gt;</code></p>
+
+<ul>
+<li>--module-path 是链接器将要发现可观测模块的路径。这些模块可以是以 JAR 文件，JMOD 文件或 exploded 模块的形式存在</li>
+<li>--add-modules 将要被加入运行时镜像的模块名。这些模块还会通过传递依赖，导致更多的模块被加入</li>
+<li>--limit-modules 对可观测模块的集合进行限制</li>
+<li>--output 用于存放产生的运行时镜像的路径</li>
+</ul>
+
+<p>--module-path， --add-modules 和 --limit-modules 选项在 <a href="http://openjdk.java.net/jeps/261">JEP261</a> 中进行了详细描述。
+其余 jlink 将会支持的选项包含：</p>
+
+<ul>
+<li>--help 打印使用/帮助信息</li>
+<li>--version 打印版本信息</li>
+</ul>
+
+<h3 id="toc_4">替代方案</h3>
+
+<p>链接工具的替代方案是使用平台特定的 JDK 和 JRE 镜像构建脚本。但采用这一途径会让创建自定义运行时镜像变的困难。</p>
+
+<h3 id="toc_5">测试</h3>
+
+<p>除了计划中的用于测试该工具的单元测试集合，JDK 构建也会通过创建 JDK 和 JRE 运行时镜像而经常调用 jlink 工具。</p>
+
+<h3 id="toc_6">风险与假设</h3>
+
+<p>该工具的需求集合目前尚未完成。工具的扩展性会随着时间推移不断完善。</p>
+
+<h3 id="toc_7">依赖</h3>
+
+<ul>
+<li><p>此 JEP 依赖于将由 <a href="http://openjdk.java.net/projects/jigsaw/spec">JSR 376 (Java Platform Module System)</a> 所定义，并由 <a href="http://openjdk.java.net/jeps/261">JEP 261: Module System</a> 实现的模块系统</p></li>
+<li><p>JDK 9 在对于 <a href="http://openjdk.java.net/jeps/220">JEP220</a> 的早期实现中使用了一个自定义的构建是工具来构造 JRE 和 JDK 镜像。那个工具将会被 jlink 所取代</p></li>
+</ul>
+
+
+
+
+</body>
+
+</html>
